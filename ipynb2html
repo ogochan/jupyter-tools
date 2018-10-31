@@ -1,0 +1,4 @@
+#!/bin/bash
+
+FILENAME=$(basename $1 .ipynb)
+jupyter nbconvert --to html --stdout $1 | ruby ~/bin/ipynb2html.rb > ${FILENAME}.html

@@ -1,0 +1,10 @@
+#! /bin/bash
+
+SCRIPT_DIR=$(cd $(dirname $0); pwd)
+
+chromium-browser --headless --disable-gpu --remote-debugging-port=9222 &
+BPID=$!
+
+ruby $SCRIPT_DIR/html2pdf.rb $@
+
+kill -9 $BPID
