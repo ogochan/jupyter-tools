@@ -3,11 +3,12 @@
 SCRIPT_DIR=$(cd $(dirname $0); pwd)
 FILENAME=$(basename $1 .ipynb)
 
-jupyter nbconvert --to html --stdout $1 2> /dev/null | ruby $SCRIPT_DIR/ipynb2html_body.rb > ${FILENAME}.html
+jupyter nbconvert --to html --stdout $1 2> /dev/null | ruby $SCRIPT_DIR/ipynb2html.rb > ${FILENAME}.html
 
 chromium-browser --headless --disable-gpu --remote-debugging-port=9222 2> /dev/null &
 BPID=$!
 
+sleep 5
 rm -f ${FILENAME}.pdf
 ruby $SCRIPT_DIR/html2pdf.rb ${FILENAME}.html ${FILENAME}.pdf
 
